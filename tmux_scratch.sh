@@ -15,11 +15,10 @@ if [ $? != 0 ]; then
 	# manage the 'main' window
 	window=1
 	tmux rename-window -t $session:$window 'main'
+
+	# manage the calculator
+	window=2
+	tmux new-window -t $session:$window -n 'calculator' -c $session_directory
+	tmux send-keys -t $session:$window 'python3 -q' Enter
 fi
 
-# if currently in tmux, else not in tmux
-if [ ! -z "${TMUX}" ]; then
-	tmux switch-client -t $session
-else
-	tmux attach-session -t $session
-fi
